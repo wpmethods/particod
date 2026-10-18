@@ -177,7 +177,7 @@ function wascw_get_notice_html() {
 			}
 			echo '</fieldset>';
 		}
-		echo '<dl class="wascw-payment-breakdown"><div><dt>' . esc_html__( 'Full order total', 'wpmethods-advance-shipping-cod' ) . '</dt><dd>' . wp_kses_post( wc_price( $total ) ) . '</dd></div><div class="wascw-pay-now"><dt>' . esc_html( $texts['order_review_heading'] ) . '</dt><dd>' . wp_kses_post( wc_price( $advance ) ) . '</dd></div><div><dt>' . esc_html__( 'Due on delivery', 'wpmethods-advance-shipping-cod' ) . '</dt><dd>' . wp_kses_post( wc_price( $due ) ) . '</dd></div></dl>';
+		echo '<dl class="wascw-payment-breakdown"><div><dt>' . esc_html( $texts['full_order_total_label'] ) . '</dt><dd>' . wp_kses_post( wc_price( $total ) ) . '</dd></div><div class="wascw-pay-now"><dt>' . esc_html( $texts['order_review_heading'] ) . '</dt><dd>' . wp_kses_post( wc_price( $advance ) ) . '</dd></div><div><dt>' . esc_html( $texts['due_on_delivery_label'] ) . '</dt><dd>' . wp_kses_post( wc_price( $due ) ) . '</dd></div></dl>';
 		if ( $advance > 0 ) {
 			$message = 'full_payment' === wascw_get_chosen_mode() ? __( 'Pay {advance_amount} now using your preferred payment method. No payment is due on delivery.', 'wpmethods-advance-shipping-cod' ) : $texts['notice_message'];
 			echo '<p class="wascw-payment-message">' . wp_kses_post(

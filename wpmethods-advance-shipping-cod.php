@@ -64,6 +64,8 @@ function wascw_get_default_texts() {
 		'notice_heading'        => __( 'Payment Plan', 'wpmethods-advance-shipping-cod' ),
 		'notice_message'        => __( 'Pay {advance_amount} now using your preferred payment method. Pay the remaining {due_amount} on delivery.', 'wpmethods-advance-shipping-cod' ),
 		'order_review_heading'  => __( 'Payable Now', 'wpmethods-advance-shipping-cod' ),
+		'full_order_total_label' => __( 'Full order total', 'wpmethods-advance-shipping-cod' ),
+		'due_on_delivery_label'  => __( 'Due on delivery', 'wpmethods-advance-shipping-cod' ),
 		'order_note'            => __( 'Advance payment of {advance_amount} confirmed. Collect {due_amount} as COD upon delivery.', 'wpmethods-advance-shipping-cod' ),
 		'customer_advance_line' => __( 'Advance payment: {advance_amount}.', 'wpmethods-advance-shipping-cod' ),
 		'customer_due_line'     => __( 'Pay {due_amount} on delivery (Cash on Delivery).', 'wpmethods-advance-shipping-cod' ),
@@ -564,7 +566,10 @@ function wascw_render_settings_page() {
 	}
 
 	/* ---- Save customizable texts ---- */
-	if ( isset( $_POST['wascw_save_texts'] ) && check_admin_referer( 'wascw_save_texts', 'wascw_texts_nonce' ) ) {
+	if ( isset( $_POST['wascw_reset_texts'] ) && check_admin_referer( 'wascw_save_texts', 'wascw_texts_nonce' ) ) {
+		update_option( WASCW_TEXTS_KEY, wascw_get_default_texts() );
+		$save_notices[] = __( 'Text settings reset to defaults successfully.', 'wpmethods-advance-shipping-cod' );
+	} elseif ( isset( $_POST['wascw_save_texts'] ) && check_admin_referer( 'wascw_save_texts', 'wascw_texts_nonce' ) ) {
 		$defaults = wascw_get_default_texts();
 		$texts    = array();
 		foreach ( $defaults as $key => $default_value ) {
@@ -688,6 +693,14 @@ function wascw_render_settings_page() {
 								<td><input type="text" class="regular-text" id="wascw_order_review_heading" name="wascw_text[order_review_heading]" value="<?php echo esc_attr( $texts['order_review_heading'] ); ?>" /></td>
 							</tr>
 							<tr>
+								<th><label for="wascw_full_order_total_label"><?php esc_html_e( 'Checkout Full Order Total Label', 'wpmethods-advance-shipping-cod' ); ?></label></th>
+								<td><input type="text" class="regular-text" id="wascw_full_order_total_label" name="wascw_text[full_order_total_label]" value="<?php echo esc_attr( $texts['full_order_total_label'] ); ?>" /></td>
+							</tr>
+							<tr>
+								<th><label for="wascw_due_on_delivery_label"><?php esc_html_e( 'Checkout Due on Delivery Label', 'wpmethods-advance-shipping-cod' ); ?></label></th>
+								<td><input type="text" class="regular-text" id="wascw_due_on_delivery_label" name="wascw_text[due_on_delivery_label]" value="<?php echo esc_attr( $texts['due_on_delivery_label'] ); ?>" /></td>
+							</tr>
+							<tr>
 								<th><label for="wascw_order_note"><?php esc_html_e( 'Order Note (added after payment)', 'wpmethods-advance-shipping-cod' ); ?></label><br /><small><?php esc_html_e( 'Placeholders: {advance_amount}, {due_amount}', 'wpmethods-advance-shipping-cod' ); ?></small></th>
 								<td><textarea class="large-text" rows="2" id="wascw_order_note" name="wascw_text[order_note]"><?php echo esc_textarea( $texts['order_note'] ); ?></textarea></td>
 							</tr>
@@ -715,6 +728,9 @@ function wascw_render_settings_page() {
 						<p>
 							<button type="submit" name="wascw_save_texts" class="button button-primary">
 											<?php esc_html_e( 'Save Texts', 'wpmethods-advance-shipping-cod' ); ?>
+							</button>
+							<button type="submit" name="wascw_reset_texts" class="button" data-confirm="<?php esc_attr_e( 'Reset all customized texts to their defaults? Your custom text changes will be lost.', 'wpmethods-advance-shipping-cod' ); ?>">
+								<?php esc_html_e( 'Reset Text', 'wpmethods-advance-shipping-cod' ); ?>
 							</button>
 						</p>
 					</form>

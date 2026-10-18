@@ -2,6 +2,12 @@ jQuery(function ($) {
     const $options = $('input[name="wascw_payment_modes[]"]');
     const $defaults = $('input[name="wascw_advance_cost_type"]');
 
+    $('button[name="wascw_reset_texts"]').on('click', function (event) {
+        if (!window.confirm($(this).attr('data-confirm'))) {
+            event.preventDefault();
+        }
+    });
+
     function updateOptions() {
         const enabled = $options.filter(':checked').map(function () { return this.value; }).get();
         $defaults.each(function () {

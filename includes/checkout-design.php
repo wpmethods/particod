@@ -133,6 +133,7 @@ function wascw_handle_design_save() {
  */
 function wascw_render_checkout_design_tab() {
 	$design = wascw_get_design_settings();
+	$texts  = wascw_get_texts();
 	$colors = array(
 		'primary_color'    => __( 'Primary color', 'wpmethods-advance-shipping-cod' ),
 		'background_color' => __( 'Background color', 'wpmethods-advance-shipping-cod' ),
@@ -196,7 +197,7 @@ function wascw_render_checkout_design_tab() {
 			<p><button type="submit" class="button button-primary" name="wascw_save_design"><?php esc_html_e( 'Save Design', 'wpmethods-advance-shipping-cod' ); ?></button> <button type="submit" class="button" name="wascw_reset_design"><?php esc_html_e( 'Reset to defaults', 'wpmethods-advance-shipping-cod' ); ?></button></p>
 		</form></div>
 		<aside class="wascw-card wascw-design-preview"><h2><?php esc_html_e( 'Live preview', 'wpmethods-advance-shipping-cod' ); ?></h2><p class="description"><?php esc_html_e( 'Sample amounts. Colors, borders and spacing update as you edit.', 'wpmethods-advance-shipping-cod' ); ?></p>
-			<div class="wascw-preview-canvas"><div id="wascw-notice-wrap"><section class="wascw-payment-card"><h3><?php echo esc_html( wascw_get_texts()['notice_heading'] ); ?></h3><dl class="wascw-payment-breakdown"><div><dt><?php esc_html_e( 'Full order total', 'wpmethods-advance-shipping-cod' ); ?></dt><dd><?php echo wp_kses_post( wc_price( 1000 ) ); ?></dd></div><div class="wascw-pay-now"><dt><?php esc_html_e( 'Payable Now', 'wpmethods-advance-shipping-cod' ); ?></dt><dd><?php echo wp_kses_post( wc_price( 200 ) ); ?></dd></div><div><dt><?php esc_html_e( 'Due on delivery', 'wpmethods-advance-shipping-cod' ); ?></dt><dd><?php echo wp_kses_post( wc_price( 800 ) ); ?></dd></div></dl><p class="wascw-payment-message"><?php esc_html_e( 'Pay the advance now. Pay the remaining balance on delivery.', 'wpmethods-advance-shipping-cod' ); ?></p></section></div></div>
+			<div class="wascw-preview-canvas"><div id="wascw-notice-wrap"><section class="wascw-payment-card"><h3><?php echo esc_html( $texts['notice_heading'] ); ?></h3><dl class="wascw-payment-breakdown"><div><dt><?php echo esc_html( $texts['full_order_total_label'] ); ?></dt><dd><?php echo wp_kses_post( wc_price( 1000 ) ); ?></dd></div><div class="wascw-pay-now"><dt><?php echo esc_html( $texts['order_review_heading'] ); ?></dt><dd><?php echo wp_kses_post( wc_price( 200 ) ); ?></dd></div><div><dt><?php echo esc_html( $texts['due_on_delivery_label'] ); ?></dt><dd><?php echo wp_kses_post( wc_price( 800 ) ); ?></dd></div></dl><p class="wascw-payment-message"><?php esc_html_e( 'Pay the advance now. Pay the remaining balance on delivery.', 'wpmethods-advance-shipping-cod' ); ?></p></section></div></div>
 		</aside>
 	</div>
 	<?php
