@@ -1,13 +1,14 @@
 <?php
 /** Standalone uninstall checks. No database connection or writes. */
 if ( 'cli' !== PHP_SAPI ) { exit; }
-define( 'WP_UNINSTALL_PLUGIN', 'adv-shipping-wpm.php' );
+define( 'WP_UNINSTALL_PLUGIN', 'wpmethods-advance-shipping-cod.php' );
 $site = 1;
 $options = array( 1 => array( 'aswpm_texts' => 'keep' ), 2 => array( 'aswpm_delete_data_on_uninstall' => 'yes', 'aswpm_texts' => 'remove', 'other_plugin_option' => 'keep' ) );
 $deleted = array();
 $queries = array();
 function get_option( $key, $default = false ) { return $GLOBALS['options'][ $GLOBALS['site'] ][ $key ] ?? $default; }
 function delete_option( $key ) { unset( $GLOBALS['options'][ $GLOBALS['site'] ][ $key ] ); $GLOBALS['deleted'][] = $key; }
+function esc_sql( $value ) { return addslashes( $value ); }
 function is_multisite() { return true; }
 function get_sites( $args ) { return $args['offset'] ? array() : array( 1, 2 ); }
 function switch_to_blog( $id ) { $GLOBALS['site'] = $id; $GLOBALS['wpdb']->prefix = 'wp_' . $id . '_'; $GLOBALS['wpdb']->postmeta = 'wp_' . $id . '_postmeta'; }

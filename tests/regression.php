@@ -114,7 +114,7 @@ class WC_Order {
 }
 $wc = new TestWoo();
 $chosen_shipping = 'flat_rate:1';
-require __DIR__ . '/../adv-shipping-wpm.php';
+require __DIR__ . '/../wpmethods-advance-shipping-cod.php';
 $checks = 0;
 function expect( $actual, $expected, $label ) {
 	$GLOBALS['checks']++;
@@ -325,6 +325,20 @@ expect( api_response()->success, false, 'Endpoint rejects overcollection' );
 expect( $wpdb->released, 3, 'Validation failure releases database lock' );
 $_POST['amount'] = array( 100 );
 expect( api_response()->success, false, 'Malformed request rejected before acquiring lock' );
+
+// Reject malformed fields and invalid operations without changing the ledger.
+$valid_request = array( 'order_id' => 3, 'nonce' => 'test-nonce', 'operation' => 'record', 'amount' => 1, 'method' => 'cash', 'reference' => 'security-test', 'request_id' => 'security-request-0001' );
+foreach ( array( 'order_id', 'nonce', 'operation', 'amount', 'method', 'reference', 'request_id', 'entry_id' ) as $field ) {
+	$_POST = $valid_request;
+	$_POST[ $field ] = array( 'unexpected' );
+	expect( api_response()->success, false, 'Array input rejected for ' . $field );
+}
+foreach ( array( array( 'operation' => 'delete' ), array( 'method' => 'invalid' ), array( 'request_id' => '../bad-request' ), array( 'operation' => 'reverse' ), array( 'amount' => -10 ), array( 'amount' => '1e999' ) ) as $invalid_fields ) {
+	$_POST = array_merge( $valid_request, $invalid_fields );
+	expect( api_response()->success, false, 'Invalid collection input rejected: ' . json_encode( $invalid_fields ) );
+}
+expect( count( aswpm_get_collections( $api_order ) ), 1, 'Rejected requests never append ledger entries' );
+expect( aswpm_get_outstanding_due( $api_order ), 780, 'Rejected requests preserve the outstanding balance' );
 $_POST = array();
 
 // Style settings cannot inject declarations through bounded controls or escape style markup.

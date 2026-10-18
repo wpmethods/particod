@@ -1,0 +1,22 @@
+.wascw-summary-row > td { padding: 0 !important; text-align: left !important; }
+.wascw-gateway-cost { display: inline-block; margin-inline-start: 8px; font-size: 12px; font-weight: 600; color: var(--wascw-primary, #2563eb); white-space: nowrap; }
+.wascw-payment-card { padding: var(--wascw-padding, 20px); margin: var(--wascw-margin, 16px 13px); border: var(--wascw-border-width, 1px) var(--wascw-border-style, solid) var(--wascw-border-color, #dbe4ef); border-radius: var(--wascw-border-radius, 12px); background: var(--wascw-background, #f8fafc); color: var(--wascw-text, #1e293b); }
+
+.wascw-payment-card h3 { margin: 0 0 16px; font-size: 17px; line-height: 1.4; color: var(--wascw-heading, #0f172a); }
+.wascw-payment-options { border: 0; margin: 0 0 16px; padding: 0; min-width: 0; }
+.wascw-payment-option { display: flex !important; gap: 10px; align-items: center; padding: 12px; margin-bottom: 8px; background: #fff; border: 1px solid var(--wascw-border-color, #dbe4ef); border-radius: 8px; cursor: pointer; font-size: 13px; }
+.wascw-payment-option:has(input:checked) { border-color: var(--wascw-primary, #2563eb); background: #eff6ff; }
+.wascw-payment-option input { margin: 0; accent-color: var(--wascw-primary, #2563eb); flex-shrink: 0; }
+.wascw-payment-option span { flex: 1; }
+.wascw-payment-option strong { margin-left: auto; white-space: nowrap; }
+.wascw-payment-option:focus-within { outline: 2px solid var(--wascw-primary, #2563eb); outline-offset: 2px; }
+.wascw-payment-breakdown { margin: 0 !important; font-size: 14px; }
+.wascw-payment-breakdown > div { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; }
+.wascw-payment-breakdown dt, .wascw-payment-breakdown dd { margin: 0; }
+.wascw-payment-breakdown dd { text-align: right; flex-shrink: 0; }
+.wascw-payment-breakdown .wascw-pay-now { color: var(--wascw-primary, #1d4ed8); font-weight: 700; border-top: 1px solid var(--wascw-border-color, #dbe4ef); }
+.wascw-payment-message { margin: 12px 0 0 !important; font-size: 12px; line-height: 1.7; color: var(--wascw-muted, #475569); }
+@media (max-width: 480px) {
+    .wascw-payment-option { flex-wrap: wrap; }
+    .wascw-payment-option strong { margin-left: 24px; }
+}

@@ -1,7 +1,7 @@
-=== AdvShippingWPM - Advance Shipping Cost for WooCommerce Checkout ===
+=== Wpmethods Advance Shipping & COD for WooCommerce ===
 Contributors: wpmethods
 Tags: woocommerce, shipping, cod, advance payment, partial payment
-Requires at least: 5.2
+Requires at least: 5.6
 Tested up to: 7.1
 Requires PHP: 7.4
 Requires Plugins: woocommerce
@@ -13,7 +13,7 @@ Collect shipping, fixed or percentage advance payments and record the remaining 
 
 == Description ==
 
-AdvShipping WPM adds flexible payment plans to classic WooCommerce checkout for selected shipping methods.
+Wpmethods Advance Shipping & COD for WooCommerce adds flexible payment plans to classic WooCommerce checkout for selected shipping methods.
 
 * Collect shipping cost only, a fixed amount, a percentage, or combinations of these sources.
 * Offer Full Payment with no delivery balance.
@@ -67,15 +67,15 @@ Enable Payment gateway plans > Show payment options and payable cost with allowe
 == Installation ==
 
 1. Install and activate WooCommerce.
-2. Upload the advshipping-wpm folder to wp-content/plugins, or upload its ZIP through Plugins > Add New.
-3. Activate AdvShipping WPM.
+2. Upload the wpmethods-advance-shipping-cod folder to wp-content/plugins, or upload its ZIP through Plugins > Add New.
+3. Activate Wpmethods Advance Shipping & COD for WooCommerce.
 4. Configure shipping zones and payment gateways in WooCommerce.
-5. Open WooCommerce > Advance Shipping COD > Payment Settings.
+5. Open WooCommerce > Wpmethods Shipping & COD > Payment Settings.
 6. Select shipping methods, enable payment choices, choose a default, and enter fixed or percentage values.
 7. Optionally rename choices using Checkout label. Leave blank for the original label; {percentage}% inserts the configured percentage.
 8. Select advance gateways, checkout position and the optional full-payment COD setting. Save Settings.
 9. Customize messages in the sidebar. Use {advance_amount}, {shipping_amount} and {due_amount} where indicated.
-10. Use Checkout Design for appearance settings and custom CSS. Scope CSS to #wcasc-notice-wrap to target the plugin summary.
+10. Use Checkout Design for appearance settings and custom CSS. Scope CSS to #aswpm-notice-wrap to target the plugin summary.
 
 == Frequently Asked Questions ==
 
@@ -116,4 +116,4 @@ Data is retained by default. Enable Database cleanup > Delete plugin data on uni
 == Upgrade Notice ==
 
 = 1.0.0 =
-Initial WordPress.org release. Code and stored data use the aswpm prefix; the text domain remains advshipping-wpm. Earlier development prefixes are not migrated.
+Initial WordPress.org release. The plugin slug and text domain are wpmethods-advance-shipping-cod. Code, assets and stored data use the aswpm prefix (Advance Shipping WP Methods), preserving existing aswpm settings and order records. Earlier development prefixes are not migrated.
