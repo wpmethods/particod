@@ -32,6 +32,11 @@ jQuery(function ($) {
                     $updated.find('.wascw-collection-history').prop('open', true);
                 }
                 $panel.replaceWith($updated);
+                if (response.data.totals_html) {
+                    const $totals = $('#woocommerce-order-items .wascw-admin-payment-total');
+                    $totals.first().before(response.data.totals_html);
+                    $totals.remove();
+                }
                 $updated.find('.wascw-collection-feedback').text(response.data.message).trigger('focus');
             } else {
                 $feedback.addClass('is-error').text(response.data.message || $panel.data('error-text'));

@@ -44,3 +44,12 @@
 .wascw-due-badge .woocommerce-Price-amount,
 .wascw-due-badge .woocommerce-Price-currencySymbol { display: inline !important; margin: 0 !important; color: inherit; }
 .wascw-due-clear { color: #64748b; }
+
+/* Replace the gateway-only total and Paid block with the collection ledger totals.
+ * Keep WooCommerce's refund controls and gateway refund amounts intact. */
+#woocommerce-order-items .wascw-admin-total-anchor,
+#woocommerce-order-items .wascw-admin-total-anchor + tr { display: none; }
+#woocommerce-order-items table.wc-order-totals:has(.wascw-admin-total-anchor) + .clear + table.wc-order-totals:has(> tbody > tr > td > span.description) { display: none; }
+#woocommerce-order-items .wascw-admin-order-total .total,
+#woocommerce-order-items .wascw-admin-paid .total { font-weight: 700; }
+#woocommerce-order-items .wascw-admin-outstanding .total { color: #1d4ed8; font-weight: 700; }

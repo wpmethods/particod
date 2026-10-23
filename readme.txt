@@ -5,7 +5,7 @@ Requires at least: 5.6
 Tested up to: 7.1
 Requires PHP: 7.4
 Requires Plugins: woocommerce
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,6 +95,8 @@ No. The advance remains awaiting confirmation. Verify the payment before marking
 
 Open the order, expand Record collection under Payments, and enter the amount, method and optional receipt/reference. The history records the entry, and the due balance updates. Use Reverse entry for a correction.
 
+The order-item summary shows the full Order Total, confirmed advance, delivery collections, total Paid and outstanding balance. Recording or reversing a collection updates these figures immediately. Gateway charges and refund limits continue to use the original advance; Paid shows receipts before refunds.
+
 = How do I repair historical Analytics totals? =
 
 Use Refresh order analytics in the order's Analytics & help section. For multiple historical orders, reimport affected orders through WooCommerce Analytics > Settings > Import historical data.
@@ -104,6 +106,12 @@ Use Refresh order analytics in the order's Analytics & help section. For multipl
 Data is retained by default. Enable Database cleanup > Delete plugin data on uninstall and save settings to permanently remove plugin settings and payment/collection metadata when deleting the plugin. Deactivation never deletes data. There are no separate plugin tables to drop. This is destructive: collection history and the stored full order value are removed; WooCommerce orders, order notes and stored order totals remain unchanged.
 
 == Changelog ==
+
+= 1.0.1 =
+* Corrected admin Order Total and Paid to show full order value and confirmed advance plus delivery collections.
+* Refresh the order-item payment summary immediately after collections and reversals, preserving gateway charges and refund limits.
+* Apply saved advance, collected and due labels to the admin payment panel and order-item summary.
+* Added a collected-label text setting. WooCommerce's standard labels remain unchanged by these text settings.
 
 = 1.0.0 =
 * Initial WordPress.org release.

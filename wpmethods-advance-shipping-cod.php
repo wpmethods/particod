@@ -3,7 +3,7 @@
  * Plugin Name: Wpmethods Advance Shipping & COD for WooCommerce
  * Plugin URI:  https://wpmethods.com/
  * Description: Collect shipping, fixed or percentage advance payments through online or manual gateways, with the remaining balance due on delivery.
- * Version:     1.0.0
+ * Version:     1.0.1
  * Author:      WP Methods
  * Author URI:  https://wpmethods.com/about
  * Text Domain: wpmethods-advance-shipping-cod
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WASCW_VERSION', '1.0.0' );
+define( 'WASCW_VERSION', '1.0.1' );
 define( 'WASCW_OPTION_KEY', 'wascw_selected_shipping_methods' );
 define( 'WASCW_TEXTS_KEY', 'wascw_texts' );
 define( 'WASCW_ADVANCE_COST_TYPE_KEY', 'wascw_advance_cost_type' );
@@ -70,6 +70,7 @@ function wascw_get_default_texts() {
 		'customer_advance_line' => __( 'Advance payment: {advance_amount}.', 'wpmethods-advance-shipping-cod' ),
 		'customer_due_line'     => __( 'Pay {due_amount} on delivery (Cash on Delivery).', 'wpmethods-advance-shipping-cod' ),
 		'admin_advance_label'   => __( 'Advance Payment', 'wpmethods-advance-shipping-cod' ),
+		'admin_collected_label' => __( 'Due collected', 'wpmethods-advance-shipping-cod' ),
 		'admin_due_label'       => __( 'Due (COD - Collectible on Delivery)', 'wpmethods-advance-shipping-cod' ),
 		'column_label'          => __( 'Due (COD)', 'wpmethods-advance-shipping-cod' ),
 	);
@@ -291,8 +292,8 @@ add_action( 'admin_menu', 'wascw_add_admin_menu' );
 function wascw_add_admin_menu() {
 	add_submenu_page(
 		'woocommerce',
-		__( 'Wpmethods Shipping & COD', 'wpmethods-advance-shipping-cod' ),
-		__( 'Wpmethods Shipping & COD', 'wpmethods-advance-shipping-cod' ),
+		__( 'Advance Shipping & COD', 'wpmethods-advance-shipping-cod' ),
+		__( 'Advance Shipping & COD', 'wpmethods-advance-shipping-cod' ),
 		'manage_woocommerce',
 		'wascw-settings',
 		'wascw_render_settings_page'
@@ -589,7 +590,7 @@ function wascw_render_settings_page() {
 	?>
 	<div class="wrap wascw-settings-wrap">
 		<div class="wascw-hero">
-			<h1><?php esc_html_e( 'Wpmethods Shipping & COD Settings', 'wpmethods-advance-shipping-cod' ); ?></h1>
+			<h1><?php esc_html_e( 'Advance Shipping & COD Settings', 'wpmethods-advance-shipping-cod' ); ?></h1>
 			<p>
 				<?php esc_html_e( 'Control how advance payment works for selected shipping methods. Choose the cost type, manage trigger methods, and customize checkout messages from one polished admin dashboard.', 'wpmethods-advance-shipping-cod' ); ?>
 			</p>
@@ -675,7 +676,7 @@ function wascw_render_settings_page() {
 				<div class="wascw-card wascw-texts-card">
 					<h2><?php esc_html_e( 'Customize Texts', 'wpmethods-advance-shipping-cod' ); ?></h2>
 					<p class="description" style="margin-top:0;">
-									<?php esc_html_e( 'Edit the customer-facing messages from checkout to order confirmation.', 'wpmethods-advance-shipping-cod' ); ?>
+									<?php esc_html_e( 'Customize plugin messages and labels for checkout, customer orders and admin payments. Admin payment labels apply to both the Payments panel and the order-item summary.', 'wpmethods-advance-shipping-cod' ); ?>
 					</p>
 					<form method="post">
 									<?php wp_nonce_field( 'wascw_save_texts', 'wascw_texts_nonce' ); ?>
@@ -693,7 +694,7 @@ function wascw_render_settings_page() {
 								<td><input type="text" class="regular-text" id="wascw_order_review_heading" name="wascw_text[order_review_heading]" value="<?php echo esc_attr( $texts['order_review_heading'] ); ?>" /></td>
 							</tr>
 							<tr>
-								<th><label for="wascw_full_order_total_label"><?php esc_html_e( 'Checkout Full Order Total Label', 'wpmethods-advance-shipping-cod' ); ?></label></th>
+								<th><label for="wascw_full_order_total_label"><?php esc_html_e( 'Full Order Total Label (Checkout & Admin)', 'wpmethods-advance-shipping-cod' ); ?></label></th>
 								<td><input type="text" class="regular-text" id="wascw_full_order_total_label" name="wascw_text[full_order_total_label]" value="<?php echo esc_attr( $texts['full_order_total_label'] ); ?>" /></td>
 							</tr>
 							<tr>
@@ -715,6 +716,10 @@ function wascw_render_settings_page() {
 							<tr>
 								<th><label for="wascw_admin_advance_label"><?php esc_html_e( 'Admin Order Page — Advance Label', 'wpmethods-advance-shipping-cod' ); ?></label></th>
 								<td><input type="text" class="regular-text" id="wascw_admin_advance_label" name="wascw_text[admin_advance_label]" value="<?php echo esc_attr( $texts['admin_advance_label'] ); ?>" /></td>
+							</tr>
+							<tr>
+								<th><label for="wascw_admin_collected_label"><?php esc_html_e( 'Admin Order Page — Collected Label', 'wpmethods-advance-shipping-cod' ); ?></label></th>
+								<td><input type="text" class="regular-text" id="wascw_admin_collected_label" name="wascw_text[admin_collected_label]" value="<?php echo esc_attr( $texts['admin_collected_label'] ); ?>" /></td>
 							</tr>
 							<tr>
 								<th><label for="wascw_admin_due_label"><?php esc_html_e( 'Admin Order Page — Due Label', 'wpmethods-advance-shipping-cod' ); ?></label></th>

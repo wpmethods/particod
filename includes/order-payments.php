@@ -57,6 +57,50 @@ function wascw_get_outstanding_due( $order ) {
 	return (float) wc_format_decimal( max( 0, (float) $order->get_meta( '_wascw_due_amount' ) - wascw_get_due_collected( $order ) ), wc_get_price_decimals() );
 }
 
+add_action( 'woocommerce_admin_order_totals_after_tax', 'wascw_render_admin_payment_totals', PHP_INT_MAX );
+/**
+ * Show the sale value and actual receipts without changing the gateway charge.
+ *
+ * @param int $order_id Order identifier.
+ * @return void
+ */
+function wascw_render_admin_payment_totals( $order_id ) {
+	$order = wc_get_order( $order_id );
+	if ( ! $order instanceof WC_Order || 'yes' !== $order->get_meta( '_wascw_is_advance_order' ) ) {
+		return;
+	}
+	echo wascw_get_admin_payment_totals( $order ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The builder escapes labels and formats monetary values.
+}
+
+/**
+ * Build order-item totals for both the initial screen and collection responses.
+ *
+ * @param WC_Order $order Advance order.
+ * @return string Escaped table rows.
+ */
+function wascw_get_admin_payment_totals( $order ) {
+	$texts     = wascw_get_texts();
+	$advance   = wascw_advance_is_confirmed( $order ) ? (float) $order->get_meta( '_wascw_advance_amount' ) : 0;
+	$collected = wascw_get_due_collected( $order );
+	$currency  = array( 'currency' => $order->get_currency() );
+	$rows      = array(
+		'order-total'   => array( __( 'Order Total:', 'wpmethods-advance-shipping-cod' ), (float) $order->get_meta( '_wascw_original_total' ) ),
+		'advance-paid'  => array( $texts['admin_advance_label'], $advance ),
+		'due-collected' => array( $texts['admin_collected_label'], $collected ),
+		'paid'          => array( __( 'Paid:', 'wpmethods-advance-shipping-cod' ), $advance + $collected ),
+		'outstanding'   => array( $texts['admin_due_label'], wascw_get_outstanding_due( $order ) ),
+	);
+	$html      = '';
+	foreach ( $rows as $key => $row ) {
+		$html .= '<tr class="wascw-admin-payment-total wascw-admin-' . esc_attr( $key ) . '"><td class="label">' . esc_html( rtrim( $row[0], ": \t\n\r\0\x0B" ) . ':' ) . '</td><td width="1%"></td><td class="total">' . wp_kses_post( wc_price( $row[1], $currency ) ) . '</td></tr>';
+	}
+	if ( (float) $order->get_total_refunded() > 0 ) {
+		$html .= '<tr class="wascw-admin-payment-total"><td colspan="3"><p class="description">' . esc_html__( 'Paid shows recorded receipts before refunds. Net Payment and refund limits below apply to the gateway advance only. Reconcile delivery refunds separately.', 'wpmethods-advance-shipping-cod' ) . '</p></td></tr>';
+	}
+	// Core's next row repeats the gateway charge as Order Total. Hide only that row.
+	return $html . '<tr class="wascw-admin-payment-total wascw-admin-total-anchor" hidden><td colspan="3"></td></tr>';
+}
+
 // Admin item/shipping edits recalculate the sale value, preserving the agreed gateway advance.
 add_action( 'woocommerce_order_after_calculate_totals', 'wascw_update_full_order_value', 20, 2 );
 /**
@@ -281,8 +325,9 @@ function wascw_ajax_order_collection() {
 	}
 	wp_send_json_success(
 		array(
-			'html'    => wascw_get_order_payment_panel( $order ),
-			'message' => $analytics_ok ? __( 'Saved. Order analytics refreshed.', 'wpmethods-advance-shipping-cod' ) : __( 'Saved. Analytics refresh is pending; use WooCommerce historical data import if needed.', 'wpmethods-advance-shipping-cod' ),
+			'html'        => wascw_get_order_payment_panel( $order ),
+			'totals_html' => wascw_get_admin_payment_totals( $order ),
+			'message'     => $analytics_ok ? __( 'Saved. Order analytics refreshed.', 'wpmethods-advance-shipping-cod' ) : __( 'Saved. Analytics refresh is pending; use WooCommerce historical data import if needed.', 'wpmethods-advance-shipping-cod' ),
 		)
 	);
 }
@@ -322,6 +367,7 @@ add_action(
  * @return string Result value.
  */
 function wascw_get_order_payment_panel( $order ) {
+	$texts        = wascw_get_texts();
 	$currency     = array( 'currency' => $order->get_currency() );
 	$full         = (float) $order->get_meta( '_wascw_original_total' );
 	$advance      = wascw_advance_is_confirmed( $order ) ? (float) $order->get_meta( '_wascw_advance_amount' ) : 0;
@@ -348,11 +394,11 @@ function wascw_get_order_payment_panel( $order ) {
 		<div class="wascw-payment-metrics">
 		<?php
 		foreach ( array(
-			__( 'Order value', 'wpmethods-advance-shipping-cod' )     => $full,
-			__( 'Advance paid', 'wpmethods-advance-shipping-cod' )    => $advance,
-			__( 'Due collected', 'wpmethods-advance-shipping-cod' )   => $collected,
-			__( 'Outstanding due', 'wpmethods-advance-shipping-cod' ) => $due,
-		) as $label => $amount ) :
+			array( $texts['full_order_total_label'], $full ),
+			array( $texts['admin_advance_label'], $advance ),
+			array( $texts['admin_collected_label'], $collected ),
+			array( $texts['admin_due_label'], $due ),
+		) as list( $label, $amount ) ) :
 			?>
 			<div><span><?php echo esc_html( $label ); ?></span><strong><?php echo wp_kses_post( wc_price( $amount, $currency ) ); ?></strong></div>
 		<?php endforeach; ?>
