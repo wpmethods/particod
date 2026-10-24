@@ -1,4 +1,4 @@
-=== PartiCOD – Advance Payments for WooCommerce ===
+=== PartiCOD ===
 Contributors: wpmethods
 Tags: woocommerce, shipping, cod, advance payment, partial payment
 Requires at least: 5.6
