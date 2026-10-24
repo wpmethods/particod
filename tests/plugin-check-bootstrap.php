@@ -13,7 +13,7 @@ WP_CLI::add_wp_hook(
 		return array(
 			'woocommerce/woocommerce.php',
 			'plugin-check/plugin.php',
-			basename( dirname( __DIR__ ) ) . '/wpmethods-advance-shipping-cod.php',
+			basename( dirname( __DIR__ ) ) . '/particod.php',
 		);
 	}
 );

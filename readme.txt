@@ -1,11 +1,11 @@
-=== Wpmethods Advance Shipping & COD for WooCommerce ===
+=== PartiCOD – Advance Payments for WooCommerce ===
 Contributors: wpmethods
 Tags: woocommerce, shipping, cod, advance payment, partial payment
 Requires at least: 5.6
 Tested up to: 7.1
 Requires PHP: 7.4
 Requires Plugins: woocommerce
-Stable tag: 1.0.1
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ Collect shipping, fixed or percentage advance payments and record the remaining 
 
 == Description ==
 
-Wpmethods Advance Shipping & COD for WooCommerce adds flexible payment plans to classic WooCommerce checkout for selected shipping methods.
+PartiCOD – Advance Payments for WooCommerce adds flexible payment plans to classic WooCommerce checkout for selected shipping methods.
 
 * Collect shipping cost only, a fixed amount, a percentage, or combinations of these sources.
 * Offer Full Payment with no delivery balance.
@@ -67,15 +67,15 @@ Enable Payment gateway plans > Show payment options and payable cost with allowe
 == Installation ==
 
 1. Install and activate WooCommerce.
-2. Upload the wpmethods-advance-shipping-cod folder to wp-content/plugins, or upload its ZIP through Plugins > Add New.
-3. Activate Wpmethods Advance Shipping & COD for WooCommerce.
+2. Upload the particod folder to wp-content/plugins, or upload its ZIP through Plugins > Add New.
+3. Activate PartiCOD – Advance Payments for WooCommerce.
 4. Configure shipping zones and payment gateways in WooCommerce.
-5. Open WooCommerce > Wpmethods Shipping & COD > Payment Settings.
+5. Open WooCommerce > PartiCOD > Payment Settings.
 6. Select shipping methods, enable payment choices, choose a default, and enter fixed or percentage values.
 7. Optionally rename choices using Checkout label. Leave blank for the original label; {percentage}% inserts the configured percentage.
 8. Select advance gateways, checkout position and the optional full-payment COD setting. Save Settings.
 9. Customize messages in the sidebar. Use {advance_amount}, {shipping_amount} and {due_amount} where indicated.
-10. Use Checkout Design for appearance settings and custom CSS. Scope CSS to #aswpm-notice-wrap to target the plugin summary.
+10. Use Checkout Design for appearance settings and custom CSS. Scope CSS to #particod-notice-wrap to target the plugin summary.
 
 == Frequently Asked Questions ==
 
@@ -107,21 +107,14 @@ Data is retained by default. Enable Database cleanup > Delete plugin data on uni
 
 == Changelog ==
 
-= 1.0.1 =
-* Corrected admin Order Total and Paid to show full order value and confirmed advance plus delivery collections.
-* Refresh the order-item payment summary immediately after collections and reversals, preserving gateway charges and refund limits.
-* Apply saved advance, collected and due labels to the admin payment panel and order-item summary.
-* Added a collected-label text setting. WooCommerce's standard labels remain unchanged by these text settings.
-
 = 1.0.0 =
-* Initial WordPress.org release.
-* Added optional gateway-based payment plans and payable amounts beside gateway names.
-* Added configurable advance payment plans and Full Payment.
-* Added optional COD, renamed checkout labels and checkout appearance controls.
-* Added installment collection records, correction history and due badges.
-* Added full-value native WooCommerce Analytics and historical order refresh.
+* Initial PartiCOD release.
+* Added shipping, fixed, percentage and combined advance payment plans, plus Full Payment.
+* Added gateway-based plans, optional COD and configurable checkout labels and appearance.
+* Added installment collection records, correction history, outstanding balances and admin payment summaries.
+* Added full-value WooCommerce Analytics and historical order refresh.
 
 == Upgrade Notice ==
 
 = 1.0.0 =
-Initial WordPress.org release. The plugin slug and text domain are wpmethods-advance-shipping-cod. Code, assets and stored data use the aswpm prefix (Advance Shipping WP Methods), preserving existing aswpm settings and order records. Earlier development prefixes are not migrated.
+Initial release of PartiCOD - Advance Payments for WooCommerce.

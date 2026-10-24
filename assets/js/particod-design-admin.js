@@ -1,5 +1,5 @@
 jQuery(function ($) {
-    const $preview = $('.wascw-design-preview #wascw-notice-wrap');
+    const $preview = $('.particod-design-preview #particod-notice-wrap');
     const $fields = $('[data-design-key]');
     if (!$preview.length) return;
 
@@ -18,20 +18,20 @@ jQuery(function ($) {
         });
         const variables = { primary_color: 'primary', background_color: 'background', border_color: 'border-color', text_color: 'text', heading_color: 'heading', muted_color: 'muted' };
         Object.keys(variables).forEach(function (key) {
-            $preview[0].style.setProperty('--wascw-' + variables[key], values[key]);
+            $preview[0].style.setProperty('--particod-' + variables[key], values[key]);
         });
         ['border_width', 'border_radius'].forEach(function (key) {
-            $preview[0].style.setProperty('--wascw-' + key.replace('_', '-'), values[key] + 'px');
+            $preview[0].style.setProperty('--particod-' + key.replace('_', '-'), values[key] + 'px');
         });
-        $preview[0].style.setProperty('--wascw-border-style', values.border_style);
+        $preview[0].style.setProperty('--particod-border-style', values.border_style);
         ['padding', 'margin'].forEach(function (type) {
-            $preview[0].style.setProperty('--wascw-' + type, ['top', 'right', 'bottom', 'left'].map(function (side) {
+            $preview[0].style.setProperty('--particod-' + type, ['top', 'right', 'bottom', 'left'].map(function (side) {
                 return values[type + '_' + side] + 'px';
             }).join(' '));
         });
     }
 
-    $('.wascw-color-picker').each(function () {
+    $('.particod-color-picker').each(function () {
         const $field = $(this);
         $field.wpColorPicker({
             change: function (event, ui) { $field.val(ui.color.toString()); updatePreview(); },
@@ -40,7 +40,7 @@ jQuery(function ($) {
     });
     $fields.on('input change', updatePreview);
     updatePreview();
-    if (window.wp && wp.codeEditor && window.wascwDesignEditor && wascwDesignEditor.settings) {
-        wp.codeEditor.initialize('wascw-custom-css', wascwDesignEditor.settings);
+    if (window.wp && wp.codeEditor && window.particodDesignEditor && particodDesignEditor.settings) {
+        wp.codeEditor.initialize('particod-custom-css', particodDesignEditor.settings);
     }
 });

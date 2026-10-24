@@ -1,6 +1,6 @@
 jQuery(function ($) {
     function positionSummary() {
-        const $summary = $('#wascw-notice-wrap');
+        const $summary = $('#particod-notice-wrap');
         const position = $summary.data('position');
         if (position === 'subtotal') {
             const $table = $summary.closest('table');
@@ -19,7 +19,7 @@ jQuery(function ($) {
         }
     }
     function refreshInitialGateway() {
-        const $summary = $('#wascw-notice-wrap');
+        const $summary = $('#particod-notice-wrap');
         const selected = $('input[name="payment_method"]:checked').val();
         if ($summary.data('gateway-plans') === true && selected && selected !== $summary.attr('data-selected-gateway')) {
             $(document.body).trigger('update_checkout');
@@ -30,11 +30,11 @@ jQuery(function ($) {
         positionSummary();
         refreshInitialGateway();
     });
-    $(document.body).on('change', 'input[name="wascw_payment_mode"]', function () {
+    $(document.body).on('change', 'input[name="particod_payment_mode"]', function () {
         $(document.body).trigger('update_checkout');
     });
     $(document.body).on('payment_method_selected', function () {
-        const $summary = $('#wascw-notice-wrap');
+        const $summary = $('#particod-notice-wrap');
         if ($summary.data('allow-cod') === true || $summary.data('gateway-plans') === true) {
             $(document.body).trigger('update_checkout');
         }

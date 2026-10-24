@@ -1,8 +1,8 @@
 jQuery(function ($) {
-    const $options = $('input[name="wascw_payment_modes[]"]');
-    const $defaults = $('input[name="wascw_advance_cost_type"]');
+    const $options = $('input[name="particod_payment_modes[]"]');
+    const $defaults = $('input[name="particod_advance_cost_type"]');
 
-    $('button[name="wascw_reset_texts"]').on('click', function (event) {
+    $('button[name="particod_reset_texts"]').on('click', function (event) {
         if (!window.confirm($(this).attr('data-confirm'))) {
             event.preventDefault();
         }
@@ -19,13 +19,13 @@ jQuery(function ($) {
         if (!$defaults.filter(':checked').length && enabled.length) {
             $defaults.filter(function () { return this.value === enabled[0]; }).prop('checked', true);
         }
-        $('.wascw-fixed-setting').toggle(enabled.some(function (mode) {
+        $('.particod-fixed-setting').toggle(enabled.some(function (mode) {
             return ['custom_price', 'both', 'combined'].includes(mode);
         }));
         const hasPercentage = enabled.some(function (mode) {
             return ['percentage', 'shipping_percentage', 'combined'].includes(mode);
         });
-        $('.wascw-percentage-setting').toggle(hasPercentage);
+        $('.particod-percentage-setting').toggle(hasPercentage);
     }
 
     $options.on('change', function () {

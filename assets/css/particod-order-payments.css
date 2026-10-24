@@ -1,0 +1,55 @@
+.particod-order-payment-slot { clear: both; display: flow-root; padding-top: 18px; width: 100%; box-sizing: border-box; }
+.particod-order-payment-slot .particod-order-payments { margin-top: 0; }
+.particod-order-payments { clear: both; margin-top: 18px; padding: 14px; border: 1px solid #dbe4ef; border-radius: 10px; background: #fff; color: #1e293b; font-size: 12px; box-sizing: border-box; }
+.particod-order-payments .particod-payment-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.particod-order-payments .particod-payment-top h3 { margin: 0; font-size: 14px; line-height: 1.4; }
+.particod-order-payments .particod-payment-status { padding: 4px 8px; border-radius: 16px; background: #fff7ed; color: #9a3412; font-size: 11px; font-weight: 600; }
+.particod-order-payments .particod-payment-status.is-settled { background: #ecfdf5; color: #047857; }
+.particod-order-payments .particod-payment-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.particod-order-payments .particod-payment-metrics > div { padding: 10px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 7px; }
+.particod-order-payments .particod-payment-metrics > div > span { display: block; color: #64748b; font-size: 11px; margin-bottom: 4px; }
+.particod-order-payments .particod-payment-metrics strong { display: block; font-size: 17px; line-height: 1.3; overflow-wrap: anywhere; }
+.particod-order-payments .particod-payment-metrics > div:last-child { background: #eff6ff; border-color: #bfdbfe; }
+.particod-order-payments .particod-payment-metrics > div:last-child strong { color: #1d4ed8; }
+.particod-order-payments .woocommerce-Price-amount,
+.particod-order-payments .woocommerce-Price-currencySymbol { display: inline !important; float: none !important; margin: 0 !important; padding: 0 !important; color: inherit; }
+.particod-order-payments .woocommerce-Price-amount { white-space: nowrap; }
+.particod-order-payments details { margin-top: 10px; border-top: 1px solid #e2e8f0; padding-top: 10px; }
+.particod-order-payments summary { cursor: pointer; font-weight: 600; color: #334155; }
+.particod-order-payments summary:focus-visible { outline: 2px solid #2271b1; outline-offset: 3px; }
+.particod-order-payments .particod-collection-editor > summary { padding: 8px 10px; border-radius: 6px; background: #2271b1; color: white; }
+.particod-order-payments .particod-collection-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; gap: 10px; margin-top: 12px; }
+.particod-order-payments .particod-collection-fields label { display: block; float: none; width: auto; font-size: 12px; font-weight: 600; }
+.particod-order-payments .particod-collection-fields input,
+.particod-order-payments .particod-collection-fields select { display: block; float: none; box-sizing: border-box; width: 100%; max-width: none; margin: 5px 0 0; min-height: 32px; font-size: 12px; font-weight: 400; }
+.particod-order-payments .particod-reference-field,
+.particod-order-payments .particod-record-collection { grid-column: 1 / -1; }
+.particod-order-payments .particod-record-collection { width: 100%; }
+#order_data .particod-order-payments p,
+.particod-order-payments p { float: none; width: auto; margin: 10px 0 0; font-size: 11px; line-height: 1.6; }
+.particod-order-payments .description,
+.particod-order-payments .particod-accounting-help { color: #64748b; }
+.particod-order-payments .particod-accounting-details .button { margin-top: 10px; }
+.particod-order-payments .particod-collection-ledger { margin: 10px 0 0; padding: 0; list-style: none; max-height: 280px; overflow-y: auto; }
+.particod-order-payments .particod-collection-ledger li { padding: 10px 0; margin: 0; border-bottom: 1px solid #e2e8f0; }
+.particod-order-payments .particod-ledger-entry-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.particod-order-payments .particod-collection-ledger small { display: block; color: #64748b; margin-top: 4px; overflow-wrap: anywhere; }
+.particod-order-payments .particod-reverse-collection { font-size: 11px; margin-top: 5px; }
+.particod-order-payments .particod-payment-footer:has(.particod-collection-feedback:empty) { display: none; }
+.particod-order-payments .particod-payment-footer { margin-top: 10px; }
+.particod-order-payments .particod-collection-feedback { display: block; color: #047857; line-height: 1.5; }
+.particod-order-payments .particod-collection-feedback.is-error { color: #b91c1c; }
+.particod-order-payments .particod-payment-warning { padding: 8px; background: #fff7ed; border-left: 3px solid #f59e0b; }
+.particod-due-badge { display: inline-flex; align-items: center; padding: 6px 10px; border: 1px solid #fed7aa; border-radius: 6px; background: #fff7ed; color: #9a3412; font-size: 13px; font-weight: 700; line-height: 1.4; white-space: nowrap; }
+.particod-due-badge .woocommerce-Price-amount,
+.particod-due-badge .woocommerce-Price-currencySymbol { display: inline !important; margin: 0 !important; color: inherit; }
+.particod-due-clear { color: #64748b; }
+
+/* Replace the gateway-only total and Paid block with the collection ledger totals.
+ * Keep WooCommerce's refund controls and gateway refund amounts intact. */
+#woocommerce-order-items .particod-admin-total-anchor,
+#woocommerce-order-items .particod-admin-total-anchor + tr { display: none; }
+#woocommerce-order-items table.wc-order-totals:has(.particod-admin-total-anchor) + .clear + table.wc-order-totals:has(> tbody > tr > td > span.description) { display: none; }
+#woocommerce-order-items .particod-admin-order-total .total,
+#woocommerce-order-items .particod-admin-paid .total { font-weight: 700; }
+#woocommerce-order-items .particod-admin-outstanding .total { color: #1d4ed8; font-weight: 700; }

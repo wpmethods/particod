@@ -1,23 +1,23 @@
 jQuery(function ($) {
-    $(document).on('click', '.wascw-record-collection, .wascw-reverse-collection, .wascw-sync-analytics', function () {
+    $(document).on('click', '.particod-record-collection, .particod-reverse-collection, .particod-sync-analytics', function () {
         const $button = $(this);
-        const $panel = $button.closest('.wascw-order-payments');
-        const operation = $button.hasClass('wascw-record-collection') ? 'record' : ($button.hasClass('wascw-reverse-collection') ? 'reverse' : 'sync');
+        const $panel = $button.closest('.particod-order-payments');
+        const operation = $button.hasClass('particod-record-collection') ? 'record' : ($button.hasClass('particod-reverse-collection') ? 'reverse' : 'sync');
         if (operation === 'reverse' && !window.confirm($panel.data('reverse-confirm'))) return;
-        const $feedback = $panel.find('.wascw-collection-feedback');
-        if (operation === 'record' && !$panel.find('.wascw-collection-amount')[0].reportValidity()) return;
+        const $feedback = $panel.find('.particod-collection-feedback');
+        if (operation === 'record' && !$panel.find('.particod-collection-amount')[0].reportValidity()) return;
         $panel.find('button').prop('disabled', true);
         $panel.attr('aria-busy', 'true');
         $feedback.removeClass('is-error').text($panel.data('saving-text'));
         $.post(ajaxurl, {
-            action: 'wascw_order_collection',
+            action: 'particod_order_collection',
             order_id: $panel.data('order-id'),
             nonce: $panel.data('nonce'),
             request_id: $panel.data('request-id'),
             operation: operation,
-            amount: $panel.find('.wascw-collection-amount').val(),
-            method: $panel.find('.wascw-collection-method').val(),
-            reference: $panel.find('.wascw-collection-reference').val(),
+            amount: $panel.find('.particod-collection-amount').val(),
+            method: $panel.find('.particod-collection-method').val(),
+            reference: $panel.find('.particod-collection-reference').val(),
             entry_id: $button.data('entry-id') || ''
         }).done(function (response) {
             if (response.success) {
@@ -29,15 +29,15 @@ jQuery(function ($) {
                     }).prop('open', true);
                 });
                 if (operation === 'record' || operation === 'reverse') {
-                    $updated.find('.wascw-collection-history').prop('open', true);
+                    $updated.find('.particod-collection-history').prop('open', true);
                 }
                 $panel.replaceWith($updated);
                 if (response.data.totals_html) {
-                    const $totals = $('#woocommerce-order-items .wascw-admin-payment-total');
+                    const $totals = $('#woocommerce-order-items .particod-admin-payment-total');
                     $totals.first().before(response.data.totals_html);
                     $totals.remove();
                 }
-                $updated.find('.wascw-collection-feedback').text(response.data.message).trigger('focus');
+                $updated.find('.particod-collection-feedback').text(response.data.message).trigger('focus');
             } else {
                 $feedback.addClass('is-error').text(response.data.message || $panel.data('error-text'));
             }
@@ -49,10 +49,10 @@ jQuery(function ($) {
             $panel.removeAttr('aria-busy');
         });
     });
-    $(document).on('keydown', '.wascw-collection-fields input', function (event) {
+    $(document).on('keydown', '.particod-collection-fields input', function (event) {
         if (event.key === 'Enter') {
             event.preventDefault();
-            $(this).closest('.wascw-order-payments').find('.wascw-record-collection:not(:disabled)').trigger('click');
+            $(this).closest('.particod-order-payments').find('.particod-record-collection:not(:disabled)').trigger('click');
         }
     });
 });
