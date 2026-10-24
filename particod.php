@@ -417,7 +417,7 @@ function particod_render_workflow_settings() {
 	?>
 	<tr><th><?php esc_html_e( 'Payment options', 'particod' ); ?></th><td>
 		<p class="description particod-options-help"><?php esc_html_e( 'Enable the options customers can use. Choose one default from the enabled options.', 'particod' ); ?></p>
-		<table class="particod-options-table">
+		<div class="particod-options-scroll" role="region" aria-label="<?php esc_attr_e( 'Payment options', 'particod' ); ?>" tabindex="0"><table class="particod-options-table">
 			<thead><tr><th scope="col"><?php esc_html_e( 'Enable', 'particod' ); ?></th><th scope="col"><?php esc_html_e( 'Advance payment', 'particod' ); ?></th><th scope="col"><?php esc_html_e( 'Checkout label', 'particod' ); ?></th><th scope="col"><?php esc_html_e( 'Default', 'particod' ); ?></th></tr></thead>
 			<tbody><?php foreach ( particod_get_payment_modes() as $mode => $label ) : ?>
 			<tr>
@@ -442,7 +442,7 @@ function particod_render_workflow_settings() {
 				);
 				?>
 																						" /></td>
-				<td><input type="radio" name="particod_advance_cost_type" value="<?php echo esc_attr( $mode ); ?>" <?php checked( particod_get_advance_cost_type(), $mode ); ?> aria-label="
+				<td data-label="<?php esc_attr_e( 'Default', 'particod' ); ?>"><input type="radio" name="particod_advance_cost_type" value="<?php echo esc_attr( $mode ); ?>" <?php checked( particod_get_advance_cost_type(), $mode ); ?> aria-label="
 				<?php
 				echo esc_attr(
 					sprintf( /* translators: %s: Payment calculation option name. */
@@ -454,7 +454,7 @@ function particod_render_workflow_settings() {
 																				" /></td>
 			</tr>
 			<?php endforeach; ?></tbody>
-		</table>
+		</table></div>
 		<p class="description" id="particod-choice-help"><?php esc_html_e( 'One enabled option: applied automatically. Multiple enabled options: customers choose at checkout.', 'particod' ); ?></p>
 		<p class="description"><?php esc_html_e( 'Rename options using Checkout label. Leave blank for the original name. Use {percentage}% to show the configured percentage in your label.', 'particod' ); ?></p>
 	</td></tr>
@@ -505,10 +505,7 @@ function particod_render_workflow_settings() {
 		<?php endforeach; ?>
 		<p class="description"><?php esc_html_e( 'Leave all unchecked to allow every enabled non-COD gateway. Select several to offer multiple payment methods. Gateway availability rules still apply.', 'particod' ); ?></p>
 	</fieldset></td></tr>
-	<tr><th><?php esc_html_e( 'Database cleanup', 'particod' ); ?></th><td>
-		<label><input type="checkbox" name="particod_delete_data_on_uninstall" value="yes" <?php checked( 'yes', get_option( 'particod_delete_data_on_uninstall', 'no' ) ); ?> /> <?php esc_html_e( 'Delete plugin data on uninstall', 'particod' ); ?></label>
-		<p class="description"><?php esc_html_e( 'Only when you delete this plugin: permanently remove its settings and order payment/collection metadata, including collection history and the stored full order value. Keep unchecked to retain this data. Deactivation never deletes data. This plugin has no separate database tables; WooCommerce orders, stored order totals, order notes and shared tables are not deleted.', 'particod' ); ?></p>
-	</td></tr>
+
 	<?php
 }
 
@@ -523,7 +520,7 @@ function particod_render_settings_page() {
 	}
 	$design_notice = particod_handle_design_save();
 	$save_notices  = $design_notice ? array( $design_notice ) : array();
-	$active_tab    = isset( $_GET['tab'] ) && 'design' === $_GET['tab'] ? 'design' : 'settings';
+	$active_tab    = particod_get_settings_tab();
 
 	/* ---- Save shipping method selection ---- */
 	if ( isset( $_POST['particod_save'] ) && check_admin_referer( 'particod_save_settings', 'particod_nonce' ) ) {
@@ -589,19 +586,29 @@ function particod_render_settings_page() {
 	$texts    = particod_get_texts();
 	?>
 	<div class="wrap particod-settings-wrap">
-		<div class="particod-hero">
-			<h1><?php esc_html_e( 'Advance Shipping & COD Settings', 'particod' ); ?></h1>
-			<p>
-				<?php esc_html_e( 'Control how advance payment works for selected shipping methods. Choose the cost type, manage trigger methods, and customize checkout messages from one polished admin dashboard.', 'particod' ); ?>
-			</p>
-		</div>
+
+		<header class="particod-hero">
+			<div class="particod-brand">
+				<img class="particod-brand-logo" src="<?php echo esc_url( plugin_dir_url( __FILE__ ) . 'assets/img/icon.webp' ); ?>" alt="" width="80" height="80" />
+				<div class="particod-brand-copy">
+					<div class="particod-brand-title"><h1><?php esc_html_e( 'PartiCOD', 'particod' ); ?></h1><span class="particod-version"><?php echo esc_html( 'v' . PARTICOD_VERSION ); ?></span></div>
+					<p class="particod-tagline"><?php esc_html_e( 'Advance payments. Clear delivery balances.', 'particod' ); ?></p>
+					<p class="particod-hero-description"><?php esc_html_e( 'Set up payment plans, choose when they apply, and make checkout your own.', 'particod' ); ?></p>
+				</div>
+			</div>
+			<div class="particod-header-context"><span class="dashicons dashicons-cart" aria-hidden="true"></span><?php esc_html_e( 'For WooCommerce', 'particod' ); ?></div>
+		</header>
 
 		<?php foreach ( $save_notices as $message ) : ?>
 		<div class="particod-save-notice" role="status"><p><?php echo esc_html( $message ); ?></p></div>
 		<?php endforeach; ?>
-		<nav class="nav-tab-wrapper particod-settings-tabs" aria-label="<?php esc_attr_e( 'Plugin settings', 'particod' ); ?>">
-			<a class="nav-tab <?php echo 'settings' === $active_tab ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=particod-settings' ) ); ?>"><?php esc_html_e( 'Payment Settings', 'particod' ); ?></a>
-			<a class="nav-tab <?php echo 'design' === $active_tab ? 'nav-tab-active' : ''; ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=particod-settings&tab=design' ) ); ?>"><?php esc_html_e( 'Checkout Design', 'particod' ); ?></a>
+		<nav class="particod-settings-tabs" aria-label="<?php esc_attr_e( 'PartiCOD settings', 'particod' ); ?>">
+			<a class="particod-settings-tab <?php echo 'settings' === $active_tab ? 'is-active' : ''; ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=particod-settings' ) ); ?>" aria-current="<?php echo 'settings' === $active_tab ? 'page' : 'false'; ?>">
+				<span class="dashicons dashicons-admin-settings" aria-hidden="true"></span><span><strong><?php esc_html_e( 'Payment settings', 'particod' ); ?></strong><small><?php esc_html_e( 'Plans, gateways & shipping', 'particod' ); ?></small></span>
+			</a>
+			<a class="particod-settings-tab <?php echo 'design' === $active_tab ? 'is-active' : ''; ?>" href="<?php echo esc_url( admin_url( 'admin.php?page=particod-settings&tab=design' ) ); ?>" aria-current="<?php echo 'design' === $active_tab ? 'page' : 'false'; ?>">
+				<span class="dashicons dashicons-admin-appearance" aria-hidden="true"></span><span><strong><?php esc_html_e( 'Checkout design', 'particod' ); ?></strong><small><?php esc_html_e( 'Colors, layout & preview', 'particod' ); ?></small></span>
+			</a>
 		</nav>
 		<?php
 		if ( 'design' === $active_tab ) :
@@ -610,14 +617,14 @@ function particod_render_settings_page() {
 		<div class="particod-settings-grid">
 			<div class="particod-main-column">
 				<div class="particod-card">
-					<h2><?php esc_html_e( 'Advance Cost Settings', 'particod' ); ?></h2>
+					<div class="particod-card-heading"><span class="dashicons dashicons-admin-settings" aria-hidden="true"></span><div><h2><?php esc_html_e( 'Payment settings', 'particod' ); ?></h2><p class="description"><?php esc_html_e( 'Choose what customers pay now and how the remaining balance is collected.', 'particod' ); ?></p></div></div>
 					<form method="post">
 									<?php wp_nonce_field( 'particod_save_settings', 'particod_nonce' ); ?>
 						<table class="form-table" style="max-width:900px;">
 										<?php particod_render_workflow_settings(); ?>
 						</table>
 
-						<div class="particod-card">
+						<div class="particod-shipping-section">
 							<h3 style="margin-bottom:8px;"><?php esc_html_e( 'Shipping Methods', 'particod' ); ?></h3>
 							<p style="margin-top:0; color:#64748b;">
 											<?php esc_html_e( 'Select the shipping methods that should trigger the advance payment flow at checkout.', 'particod' ); ?>
@@ -627,7 +634,7 @@ function particod_render_settings_page() {
 											<?php esc_html_e( 'No shipping methods found. Please set up shipping zones/methods first under WooCommerce → Settings → Shipping.', 'particod' ); ?>
 								</p></div>
 							<?php else : ?>
-								<table class="particod-table">
+								<div class="particod-table-scroll"><table class="particod-table">
 									<thead>
 										<tr>
 											<th style="width:40px;"></th>
@@ -658,11 +665,17 @@ function particod_render_settings_page() {
 										</tr>
 									<?php endforeach; ?>
 									</tbody>
-								</table>
+								</table></div>
 							<?php endif; ?>
 						</div>
 
-						<p style="margin-top:18px;">
+						<section class="particod-danger-zone" aria-labelledby="particod-danger-heading">
+							<h3 id="particod-danger-heading"><span class="dashicons dashicons-warning" aria-hidden="true"></span><?php esc_html_e( 'Danger zone', 'particod' ); ?></h3>
+							<label for="particod-delete-data"><input type="checkbox" id="particod-delete-data" name="particod_delete_data_on_uninstall" value="yes" <?php checked( 'yes', get_option( 'particod_delete_data_on_uninstall', 'no' ) ); ?> aria-describedby="particod-delete-data-description" /> <?php esc_html_e( 'Delete plugin data on uninstall', 'particod' ); ?></label>
+							<p class="description" id="particod-delete-data-description"><?php esc_html_e( 'Only when you delete this plugin: permanently remove its settings and order payment/collection metadata, including collection history and the stored full order value. Keep unchecked to retain this data. Deactivation never deletes data. This plugin has no separate database tables; WooCommerce orders, stored order totals, order notes and shared tables are not deleted.', 'particod' ); ?></p>
+						</section>
+
+						<p class="particod-form-actions">
 							<button type="submit" name="particod_save" class="button button-primary">
 											<?php esc_html_e( 'Save Settings', 'particod' ); ?>
 							</button>
@@ -674,13 +687,15 @@ function particod_render_settings_page() {
 
 			<aside class="particod-sidebar">
 				<div class="particod-card particod-texts-card">
-					<h2><?php esc_html_e( 'Customize Texts', 'particod' ); ?></h2>
+					<div class="particod-card-heading"><span class="dashicons dashicons-editor-textcolor" aria-hidden="true"></span><div><h2><?php esc_html_e( 'Messages & labels', 'particod' ); ?></h2><p class="description"><?php esc_html_e( 'Your store, your words.', 'particod' ); ?></p></div></div>
 					<p class="description" style="margin-top:0;">
-									<?php esc_html_e( 'Customize plugin messages and labels for checkout, customer orders and admin payments. Admin payment labels apply to both the Payments panel and the order-item summary.', 'particod' ); ?>
+									<?php esc_html_e( 'Personalize the wording customers and staff see. Expand a section to edit its messages.', 'particod' ); ?>
 					</p>
 					<form method="post">
 									<?php wp_nonce_field( 'particod_save_texts', 'particod_texts_nonce' ); ?>
-						<table class="form-table" style="max-width:900px;">
+						<details class="particod-text-section" open>
+							<summary><span><?php esc_html_e( 'Checkout messages', 'particod' ); ?></span><span class="dashicons dashicons-arrow-down-alt2" aria-hidden="true"></span></summary>
+							<table class="form-table"><tbody>
 							<tr>
 								<th><label for="particod_notice_heading"><?php esc_html_e( 'Checkout Notice Heading', 'particod' ); ?></label></th>
 								<td><input type="text" class="regular-text" id="particod_notice_heading" name="particod_text[notice_heading]" value="<?php echo esc_attr( $texts['notice_heading'] ); ?>" /></td>
@@ -701,6 +716,11 @@ function particod_render_settings_page() {
 								<th><label for="particod_due_on_delivery_label"><?php esc_html_e( 'Checkout Due on Delivery Label', 'particod' ); ?></label></th>
 								<td><input type="text" class="regular-text" id="particod_due_on_delivery_label" name="particod_text[due_on_delivery_label]" value="<?php echo esc_attr( $texts['due_on_delivery_label'] ); ?>" /></td>
 							</tr>
+							</tbody></table>
+						</details>
+						<details class="particod-text-section">
+							<summary><span><?php esc_html_e( 'Orders & emails', 'particod' ); ?></span><span class="dashicons dashicons-arrow-down-alt2" aria-hidden="true"></span></summary>
+							<table class="form-table"><tbody>
 							<tr>
 								<th><label for="particod_order_note"><?php esc_html_e( 'Order Note (added after payment)', 'particod' ); ?></label><br /><small><?php esc_html_e( 'Placeholders: {advance_amount}, {due_amount}', 'particod' ); ?></small></th>
 								<td><textarea class="large-text" rows="2" id="particod_order_note" name="particod_text[order_note]"><?php echo esc_textarea( $texts['order_note'] ); ?></textarea></td>
@@ -713,6 +733,11 @@ function particod_render_settings_page() {
 								<th><label for="particod_customer_due_line"><?php esc_html_e( 'Customer Order View — Due Line', 'particod' ); ?></label><br /><small><?php esc_html_e( 'Placeholder: {due_amount}', 'particod' ); ?></small></th>
 								<td><input type="text" class="large-text" id="particod_customer_due_line" name="particod_text[customer_due_line]" value="<?php echo esc_attr( $texts['customer_due_line'] ); ?>" /></td>
 							</tr>
+							</tbody></table>
+						</details>
+						<details class="particod-text-section">
+							<summary><span><?php esc_html_e( 'Admin labels', 'particod' ); ?></span><span class="dashicons dashicons-arrow-down-alt2" aria-hidden="true"></span></summary>
+							<table class="form-table"><tbody>
 							<tr>
 								<th><label for="particod_admin_advance_label"><?php esc_html_e( 'Admin Order Page — Advance Label', 'particod' ); ?></label></th>
 								<td><input type="text" class="regular-text" id="particod_admin_advance_label" name="particod_text[admin_advance_label]" value="<?php echo esc_attr( $texts['admin_advance_label'] ); ?>" /></td>
@@ -729,9 +754,9 @@ function particod_render_settings_page() {
 								<th><label for="particod_column_label"><?php esc_html_e( 'Orders List Column Label', 'particod' ); ?></label></th>
 								<td><input type="text" class="regular-text" id="particod_column_label" name="particod_text[column_label]" value="<?php echo esc_attr( $texts['column_label'] ); ?>" /></td>
 							</tr>
-						</table>
-						<p>
-							<button type="submit" name="particod_save_texts" class="button button-primary">
+							</tbody></table>
+						</details>
+						<p class="particod-form-actions"><button type="submit" name="particod_save_texts" class="button button-primary">
 											<?php esc_html_e( 'Save Texts', 'particod' ); ?>
 							</button>
 							<button type="submit" name="particod_reset_texts" class="button" data-confirm="<?php esc_attr_e( 'Reset all customized texts to their defaults? Your custom text changes will be lost.', 'particod' ); ?>">

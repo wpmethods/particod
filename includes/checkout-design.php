@@ -144,7 +144,7 @@ function particod_render_checkout_design_tab() {
 	);
 	?>
 	<div class="particod-design-layout">
-		<div class="particod-card"><h2><?php esc_html_e( 'Checkout Design', 'particod' ); ?></h2><p class="description"><?php esc_html_e( 'Match the advance payment box to your theme. These settings affect the checkout summary.', 'particod' ); ?></p>
+		<div class="particod-card"><div class="particod-card-heading"><span class="dashicons dashicons-admin-appearance" aria-hidden="true"></span><div><h2><?php esc_html_e( 'Checkout design', 'particod' ); ?></h2><p class="description"><?php esc_html_e( 'Match the advance payment box to your theme.', 'particod' ); ?></p></div></div>
 		<form method="post">
 			<?php wp_nonce_field( 'particod_save_design', 'particod_design_nonce' ); ?>
 			<table class="form-table"><tbody>
@@ -194,9 +194,9 @@ function particod_render_checkout_design_tab() {
 			<p class="description"><?php esc_html_e( 'Applied after the design settings on checkout. Use #particod-notice-wrap to target this plugin’s summary. Custom CSS is applied after saving.', 'particod' ); ?></p>
 			<textarea id="particod-custom-css" name="particod_design[custom_css]" class="large-text code" rows="10" spellcheck="false" placeholder="#particod-notice-wrap .particod-payment-card { box-shadow: 0 4px 16px rgba(0,0,0,.05);
 }" aria-label="<?php esc_attr_e( 'Checkout custom CSS', 'particod' ); ?>"><?php echo esc_textarea( $design['custom_css'] ); ?></textarea>
-			<p><button type="submit" class="button button-primary" name="particod_save_design"><?php esc_html_e( 'Save Design', 'particod' ); ?></button> <button type="submit" class="button" name="particod_reset_design"><?php esc_html_e( 'Reset to defaults', 'particod' ); ?></button></p>
+			<p class="particod-form-actions"><button type="submit" class="button button-primary" name="particod_save_design"><?php esc_html_e( 'Save Design', 'particod' ); ?></button> <button type="submit" class="button" name="particod_reset_design"><?php esc_html_e( 'Reset to defaults', 'particod' ); ?></button></p>
 		</form></div>
-		<aside class="particod-card particod-design-preview"><h2><?php esc_html_e( 'Live preview', 'particod' ); ?></h2><p class="description"><?php esc_html_e( 'Sample amounts. Colors, borders and spacing update as you edit.', 'particod' ); ?></p>
+		<aside class="particod-card particod-design-preview"><div class="particod-card-heading"><span class="dashicons dashicons-visibility" aria-hidden="true"></span><div><h2><?php esc_html_e( 'Live preview', 'particod' ); ?></h2><p class="description"><?php esc_html_e( 'Sample amounts. Changes appear as you edit.', 'particod' ); ?></p></div></div>
 			<div class="particod-preview-canvas"><div id="particod-notice-wrap"><section class="particod-payment-card"><h3><?php echo esc_html( $texts['notice_heading'] ); ?></h3><dl class="particod-payment-breakdown"><div><dt><?php echo esc_html( $texts['full_order_total_label'] ); ?></dt><dd><?php echo wp_kses_post( wc_price( 1000 ) ); ?></dd></div><div class="particod-pay-now"><dt><?php echo esc_html( $texts['order_review_heading'] ); ?></dt><dd><?php echo wp_kses_post( wc_price( 200 ) ); ?></dd></div><div><dt><?php echo esc_html( $texts['due_on_delivery_label'] ); ?></dt><dd><?php echo wp_kses_post( wc_price( 800 ) ); ?></dd></div></dl><p class="particod-payment-message"><?php esc_html_e( 'Pay the advance now. Pay the remaining balance on delivery.', 'particod' ); ?></p></section></div></div>
 		</aside>
 	</div>

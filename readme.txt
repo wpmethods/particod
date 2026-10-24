@@ -109,10 +109,6 @@ Data is retained by default. Enable Database cleanup > Delete plugin data on uni
 
 = 1.0.0 =
 * Initial PartiCOD release.
-* Added shipping, fixed, percentage and combined advance payment plans, plus Full Payment.
-* Added gateway-based plans, optional COD and configurable checkout labels and appearance.
-* Added installment collection records, correction history, outstanding balances and admin payment summaries.
-* Added full-value WooCommerce Analytics and historical order refresh.
 
 == Upgrade Notice ==
 
