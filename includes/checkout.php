@@ -204,6 +204,7 @@ add_action(
 	function () {
 		if ( function_exists( 'is_checkout' ) && is_checkout() && ! is_order_received_page() ) {
 			wp_enqueue_style( 'particod-checkout', plugin_dir_url( __DIR__ . '/../particod.php' ) . 'assets/css/particod-checkout.css', array(), PARTICOD_VERSION );
+			// Only plugin-generated declarations from allowlisted appearance settings.
 			wp_add_inline_style( 'particod-checkout', particod_get_design_css() );
 			wp_enqueue_script( 'particod-checkout', plugin_dir_url( __DIR__ . '/../particod.php' ) . 'assets/js/particod-checkout.js', array( 'jquery', 'wc-checkout' ), PARTICOD_VERSION, true );
 		}

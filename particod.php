@@ -319,8 +319,6 @@ function particod_enqueue_admin_assets( $hook_suffix ) {
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 'particod-design-preview', $plugin_url . 'assets/css/particod-checkout.css', array(), PARTICOD_VERSION );
 		wp_enqueue_script( 'particod-design-admin', $plugin_url . 'assets/js/particod-design-admin.js', array( 'jquery', 'wp-color-picker' ), PARTICOD_VERSION, true );
-		$editor_settings = wp_enqueue_code_editor( array( 'type' => 'text/css' ) );
-		wp_localize_script( 'particod-design-admin', 'particodDesignEditor', array( 'settings' => $editor_settings ) );
 	}
 }
 

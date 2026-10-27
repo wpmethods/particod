@@ -11,9 +11,12 @@ jQuery(function ($) {
                 const value = $(this).val();
                 values[key] = /^#[0-9a-f]{3}([0-9a-f]{3})?$/i.test(value) ? value : $(this).data('default-color');
             } else if (key === 'border_style') {
-                values[key] = $(this).val();
+                const value = $(this).val();
+                values[key] = ['none', 'solid', 'dashed', 'dotted', 'double'].includes(value) ? value : 'solid';
             } else {
-                values[key] = Math.max(0, Math.min(Number(this.max), Number($(this).val()) || 0));
+                const value = String($(this).val());
+                const number = /^-?[0-9]+(?:\.[0-9]+)?$/.test(value) && Number.isFinite(Number(value)) ? Number(value) : Number(this.defaultValue);
+                values[key] = Math.round(Math.max(Number(this.min), Math.min(Number(this.max), number)) * 2) / 2;
             }
         });
         const variables = { primary_color: 'primary', background_color: 'background', border_color: 'border-color', text_color: 'text', heading_color: 'heading', muted_color: 'muted' };
@@ -40,7 +43,4 @@ jQuery(function ($) {
     });
     $fields.on('input change', updatePreview);
     updatePreview();
-    if (window.wp && wp.codeEditor && window.particodDesignEditor && particodDesignEditor.settings) {
-        wp.codeEditor.initialize('particod-custom-css', particodDesignEditor.settings);
-    }
 });

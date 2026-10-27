@@ -23,7 +23,7 @@ PartiCOD – Advance Payments for WooCommerce adds flexible payment plans to cla
 * Optionally offer full-payment Cash on Delivery alongside advance payment methods.
 * Show order value, payable amount and delivery balance in a checkout summary.
 * Position the summary above order total, below subtotal, above payment methods, below the payment title or below payment methods.
-* Customize colors, border, radius, padding, margin and checkout CSS, with an admin live preview.
+* Customize colors, border, radius, padding and margin with an admin live preview.
 * Edit checkout, order and email messages using amount placeholders.
 * Record full or installment delivery collections with collection method, reference, staff member and timestamp.
 * Correct collection entries with an append-only reversal history.
@@ -75,7 +75,7 @@ Enable Payment gateway plans > Show payment options and payable cost with allowe
 7. Optionally rename choices using Checkout label. Leave blank for the original label; {percentage}% inserts the configured percentage.
 8. Select advance gateways, checkout position and the optional full-payment COD setting. Save Settings.
 9. Customize messages in the sidebar. Use {advance_amount}, {shipping_amount} and {due_amount} where indicated.
-10. Use Checkout Design for appearance settings and custom CSS. Scope CSS to #particod-notice-wrap to target the plugin summary.
+10. Use Checkout Design for color pickers, border, radius and spacing. The plugin generates checkout styles from these validated settings.
 
 == Frequently Asked Questions ==
 
