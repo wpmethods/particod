@@ -51,7 +51,7 @@ The plugin does not process or verify mobile-money transactions itself. It uses 
 3. Advance percentage and calculation settings, checkout summary positioning, and the optional full-payment Cash on Delivery setting.
 4. Gateway-based payment plans and allowed advance payment gateways. Payment gateway plugins are installed and configured separately.
 5. Shipping-method selection for advance payment plans and the optional delete-plugin-data-on-uninstall setting.
-
+6. Order Payments panel showing the full order total, advance payment, collected amount and outstanding delivery balance, with fields to record money received, collection method and an optional receipt or reference.
 
 = Checkout compatibility =
 
