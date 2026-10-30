@@ -763,16 +763,6 @@ function particod_render_settings_page() {
 					</form>
 				</div>
 				<div class="particod-card">
-					<h3><?php esc_html_e( 'Support & Community', 'particod' ); ?></h3>
-					<div class="particod-support-list">
-						<a href="https://buymeacoffee.com/ajharrashed" target="_blank" rel="noopener noreferrer">☕ <?php esc_html_e( 'Buy Me a Coffee', 'particod' ); ?></a>
-						<a href="https://youtube.com/techtriggerbd" target="_blank" rel="noopener noreferrer">▶ <?php esc_html_e( 'YouTube Channel', 'particod' ); ?></a>
-						<a href="https://www.facebook.com/techtriggerr" target="_blank" rel="noopener noreferrer">📘 <?php esc_html_e( 'Facebook Page', 'particod' ); ?></a>
-						<a href="https://www.wpmethods.com" target="_blank" rel="noopener noreferrer">🌐 <?php esc_html_e( 'Website', 'particod' ); ?></a>
-					</div>
-				</div>
-
-				<div class="particod-card">
 					<h3><?php esc_html_e( 'Quick Tips', 'particod' ); ?></h3>
 					<ul class="particod-tip-list">
 						<li><?php esc_html_e( 'Use By Shipping Method for normal shipping-based advance payments.', 'particod' ); ?></li>
@@ -781,6 +771,7 @@ function particod_render_settings_page() {
 					</ul>
 					<p class="particod-credit"><?php esc_html_e( 'Developed by', 'particod' ); ?> <a href="https://www.wpmethods.com" target="_blank" rel="noopener noreferrer">WP Methods</a></p>
 				</div>
+				<?php require __DIR__ . '/includes/admin-resources.php'; ?>
 			</aside>
 		</div>
 					<?php endif; ?>

@@ -1,6 +1,6 @@
-=== PartiCOD ===
-Contributors: wpmethods
-Tags: woocommerce, shipping, cod, advance payment, partial payment
+=== PartiCOD - Collect Advance Shipping Cost or Fixed, Percentage Payments ===
+Contributors: wpmethods, ajharrashed
+Tags: woocommerce, shipping, shipping cost, advance payment, partial payment
 Requires at least: 5.6
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -9,28 +9,49 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Collect shipping, fixed or percentage advance payments and record the remaining balance collected on delivery.
+Collect shipping cost, fixed or percentage advance payments and record the remaining balance collected on delivery.
 
 == Description ==
 
 PartiCOD – Advance Payments for WooCommerce adds flexible payment plans to classic WooCommerce checkout for selected shipping methods.
 
-* Collect shipping cost only, a fixed amount, a percentage, or combinations of these sources.
-* Offer Full Payment with no delivery balance.
-* Enable several choices and set a default. Rename checkout option labels, including translated labels.
-* Calculate percentages from the discounted full order total or exclude shipping and shipping tax.
-* Limit advance payments to selected enabled gateways, including available mobile-money and manual gateways.
-* Optionally offer full-payment Cash on Delivery alongside advance payment methods.
-* Show order value, payable amount and delivery balance in a checkout summary.
-* Position the summary above order total, below subtotal, above payment methods, below the payment title or below payment methods.
-* Customize colors, border, radius, padding and margin with an admin live preview.
-* Edit checkout, order and email messages using amount placeholders.
-* Record full or installment delivery collections with collection method, reference, staff member and timestamp.
-* Correct collection entries with an append-only reversal history.
-* Show outstanding balances as badges immediately after order status in classic and HPOS order lists.
-* Use full order value in native WooCommerce Analytics without treating collections as additional sales.
+**💰 Flexible Delivery Charge Collection** – Collect delivery charges as a fixed amount, percentage, or a combination of multiple sources.
 
+**💳 Full Payment Option** – Allow customers to pay the full order amount upfront with no remaining delivery balance.
+
+**⚙️ Multiple Payment Options** – Enable multiple payment choices, set a default option, and customize checkout labels, including translated text.
+
+**📊 Flexible Percentage Calculation** – Calculate advance payment percentages from the discounted order total, with options to exclude shipping costs and shipping taxes.
+
+**🏦 Gateway-Based Advance Payments** – Restrict advance payments to selected enabled gateways, including mobile banking and manual payment methods.
+
+**🚚 Advance Payment with COD** – Optionally offer full-payment Cash on Delivery alongside advance payment options.
+
+**🧾 Checkout Payment Summary** – Display order value, payable amount, and remaining delivery balance in a clear checkout summary.
+
+**📍 Flexible Summary Positioning** – Place the payment summary above order total, below subtotal, above payment methods, below the payment title, or below payment methods.
+
+**🎨 Live Style Customization** – Customize colors, borders, border radius, padding, and margins with a real-time admin preview.
+
+**✉️ Customizable Messages & Emails** – Edit checkout, order, and email messages using dynamic amount placeholders.
+
+**📦 Delivery Collection Management** – Record full or installment delivery collections with payment method, reference, staff member, and timestamp.
+
+**🔄 Collection Reversal History** – Correct collection records with a complete append-only reversal history for transparent tracking.
+
+**🏷️ Outstanding Balance Badges** – Display outstanding delivery balances immediately after order status in both Classic and HPOS order lists.
+
+**📈 Native WooCommerce Analytics** – Maintain accurate full order values in WooCommerce Analytics without counting delivery collections as additional sales.
 The plugin does not process or verify mobile-money transactions itself. It uses your existing WooCommerce gateways. Manual payments remain awaiting verification while on hold. Verify the advance through the gateway or move the order to processing after checking the transfer.
+
+
+== Screenshots ==
+1. Classic checkout payment plans with shipping-cost, percentage and full-payment choices, plus a clear payable-now and due-on-delivery summary.
+2. Payment settings with shipping-cost, fixed, percentage, combined and full-payment options, a default plan, and customizable checkout messages and labels.
+3. Advance percentage and calculation settings, checkout summary positioning, and the optional full-payment Cash on Delivery setting.
+4. Gateway-based payment plans and allowed advance payment gateways. Payment gateway plugins are installed and configured separately.
+5. Shipping-method selection for advance payment plans and the optional delete-plugin-data-on-uninstall setting.
+
 
 = Checkout compatibility =
 
